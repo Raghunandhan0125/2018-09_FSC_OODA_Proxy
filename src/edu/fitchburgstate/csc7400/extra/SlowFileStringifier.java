@@ -1,77 +1,85 @@
+/*
+ * Created on: 
+ * Author : 
+ * 
+ */
 package edu.fitchburgstate.csc7400.extra;
 
 import java.io.*;
 import java.util.ArrayList;
 
-import java.io.PrintWriter;
-
-
-//Declaring class that implements FileStringifier
+/**
+ * The Class SlowFileStringifier.
+ */
+//SlowFileStringifier implementing FileStringifier interface.
 public class SlowFileStringifier implements FileStringifier {
 
-	//Defining constructor for the class SlowFileStringifier
-	  public SlowFileStringifier(String filename) {
-	        this.fileName = filename;
-	    }
+/**
+ * Instantiates a new slow file stringifier.
+ *
+ * @param filename holds the value of file path
+ */
+//	Constructor of SlowFileStringifier class and gets executed when ever object for this class is created.
+    public SlowFileStringifier(String filename) {
+        this.fileName = filename;
+    }
 
-	// Defining interface method to display contents of file
-	    public void display(PrintWriter out) {
-	    	
-	    	//Prints content returned by stringify method on to console
-	    	out.println(this.stringify());
-	    	
-	    	//clears content of out object
-	    	out.flush();
-	    }
-	    
-	  //Interface method implementation to read content of file and return as as a String
-	    public String stringify() {
-	        FileReader f;
-			try {
-				f = new FileReader(this.fileName);
-				
-				//declaring object of type BufferedReader to read contents of a file
-		        BufferedReader bf = new BufferedReader(f);
-		
-		      //Declaring arraylist of type String to copy content of BufferedReader object into
-		        ArrayList<String> lines = new ArrayList<String>();
-		        
-		      //Initializing String variable
-		        String line = null;
-		        
-		      //Method to read each line of file and add the line to array list. Exit when end of BufferedReader is reached.
-		        while ((line = bf.readLine()) != null) {
-		            Thread.sleep(2000);
-		            lines.add(line);
-		        }
-		        
-		     // closes BufferedReader object
-		        bf.close();
-		        
-		      //Returns the content of the file from array list as a String after adding end of line operator at end of each line
-		        return String.join("\n", lines);
+
+/*
+ * @see edu.fitchburgstate.csc7400.extra.FileStringifier#display(java.io.PrintWriter)
+ */
+//Interface method being implemented.
+    public void display(PrintWriter out) {
+//    	Println() method is called out on System.out reference hence it prints output on console and stringify() is called inside this method.
+    	out.println(this.stringify());
+//    	flush() method is used to flush out any data that got stuck or saved inside the output stream onto the console.
+    	out.flush();
+    }
+    
+
+/*
+ * @see edu.fitchburgstate.csc7400.extra.FileStringifier#stringify()
+ */
+//    This stringify() method is used to return the file contents.
+    public String stringify() {
+//    	Local FileReader reference.
+        FileReader f;
+		try {
+//			FileReader object created with filepath thats passed to the constructor.
+			f = new FileReader(this.fileName);
+//			BufferedReader object is created and it takes Filereader object reference as it can't directly communicate with the file.
+	        BufferedReader bf = new BufferedReader(f);
+//			ArrayList collection object of generic String.
+	        ArrayList<String> lines = new ArrayList<String>();
+//	        String type local variable line
+	        String line = null;
+//	        while loop used to read the contents in files line by line using readLine() method.
+	        while ((line = bf.readLine()) != null) {
+//	        	Thread.sleep() stops the execution of thread for given amount of time.
+	            Thread.sleep(2000);
+//	            add() method is used to add the each read line to ArrayList collection object by being called with ArrayList object reference.
+	            lines.add(line);
+	        }
+//	        close() method is used to close the costly resource BufferedReader.
+	        bf.close();
+//	        stringify() method returning the ArrayList object reference.
+	        return String.join("\n", lines);
 	        
-		        //Throws error if a file is not found at the specified location
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				System.err.println("File "+this.fileName+" was not found.");
-				
-				//Throws error if a file cannot be read
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.err.println("Problem reading file "+this.fileName+".");
-				
-				//Throws error when file reading is interruped
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				System.err.println("File reading interrupted: "+this.fileName);
-			}
-			
-			//returns "" when an exception is encountered
-			return "";
-	    }
+//        Here catch blocks will handle the exceptions that rise during execution of code.
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.err.println("File "+this.fileName+" was not found.");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.err.println("Problem reading file "+this.fileName+".");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			System.err.println("File reading interrupted: "+this.fileName);
+		}
+		return "";
+    }
 
-	    private final String fileName;
-	}
-
-
+/** The file name. */
+//A private String variable and this can only be used in this class.
+    private final String fileName;
+}

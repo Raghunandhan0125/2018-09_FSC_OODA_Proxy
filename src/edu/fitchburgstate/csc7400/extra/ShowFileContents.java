@@ -1,47 +1,54 @@
+/*
+ * Created on : 
+ * Author : 
+ */
 package edu.fitchburgstate.csc7400.extra;
 
 import java.io.File;
 import java.io.PrintWriter;
 
 
-//Declaring main class with calls to methods of classes that read and display contents of files from the specified directory.
+/**
+ * The Class ShowFileContents. In this the given path as argument to main method is validated
+ * and an object of slowFileStringifier is created and display method is called using the slowFileStringifier object reference.
+ */
 public class ShowFileContents {
-	public static void main(String[] args) {
-		
-		//Checks that the class is executed in the correct format (mentioning the directory name), else displays a message with correct format to the user
+
+/**
+ * The main method.
+ *
+ * @param args the String array arguments of main holds the path of text files as value.
+ */
+//	Directory path to be given as arguments to main methods String array(command line arguments).
+    public static void main(String[] args) {
+
+//    	If argument to main method is not passed then thread enters inside if block.
         if (args.length != 1) {
             System.out.println("Usage: java ShowFileContents <directory>");
         }
-        
-      //String variable to store directory name
+//       Path argument is stored in dirname 
         String dirname = args[0];
-
-      //Declaring object of type File
+//        File object is created and path is passed as an argument to file object constructor.
         File dir = new File(dirname);
-        
-        // Checks that a directory exists with the specified name. Displays message to the user if it does not exist and exits.
+//        If the given directory doesn't exist then thread enters into this if block and execution stops.
         if (!dir.exists()) {
             System.err.println(dirname + " does not exist");
             return;
         }
-        
-        // Checks that specified argument is name of a directory. Displays message to the user if it is not and exits.
         if (!dir.isDirectory()) {
             System.err.println(dirname + " is not a directory");
             return;
         }
-
-        //Declaring object of type PrintWriter with 'System.out' aas argument so as to display the contents in the console.
+//		PrintWriter object is created and System.out is sent as an argument to Printwriter object's constructor.
         PrintWriter outWriter = new PrintWriter(System.out);
-        
-     // Loops through each file in the directory, and calls 'display' method of SlowFileStringifier class to display content of file. Skips any sub-directories.
+//       For each loop is used to list out all the files one by one. 
         for (File file: dir.listFiles()) {
         	if (file.isDirectory()) continue;
-        	
-        	//Creating an object of SlowFileStringifier class to call the display method that displays content of file. Object is declared of type FileStringifier but an object of SlowFileStringifier  is created (as it implements FileStringifier). 
+//        	Object of SlowFileStringifier is created and is handled by FileStringifier interface as SlowFileStringifier is implementing FileStringifier.
+//        	File path is passed to this object constructor by making use of getPath() method.
         	FileStringifier fileStringifier = new SlowFileStringifier(file.getPath());
+//        	A non static method Display inside SlowStringifier implimented from FileStringifier is called using FileStringifier object reference.
         	fileStringifier.display(outWriter);
         }
     }
   }
-
