@@ -9,38 +9,27 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * The Class SlowFileStringifier.
+ * The class slowFileStringifier display the implementation of an interface "FileStringifier"
+ *  override two abstract methods for reading and displaying contents of file 
  */
-//SlowFileStringifier implementing FileStringifier interface.
+
 public class SlowFileStringifier implements FileStringifier {
 
-/**
- * Instantiates a new slow file stringifier.
- *
- * @param filename holds the value of file path
- */
-//	Constructor of SlowFileStringifier class and gets executed when ever object for this class is created.
+	/**
+	 * Constructor of SlowFileStringifier class and gets executed when ever object for this class is created.
+	 * @param filename
+	 */
     public SlowFileStringifier(String filename) {
         this.fileName = filename;
     }
-
-
-/*
- * @see edu.fitchburgstate.csc7400.extra.FileStringifier#display(java.io.PrintWriter)
- */
-//Interface method being implemented.
+ //Interface method being implemented.
     public void display(PrintWriter out) {
 //    	Println() method is called out on System.out reference hence it prints output on console and stringify() is called inside this method.
     	out.println(this.stringify());
 //    	flush() method is used to flush out any data that got stuck or saved inside the output stream onto the console.
     	out.flush();
     }
-    
-
-/*
- * @see edu.fitchburgstate.csc7400.extra.FileStringifier#stringify()
- */
-//    This stringify() method is used to return the file contents.
+   //    This stringify() method is used to return the file contents.
     public String stringify() {
 //    	Local FileReader reference.
         FileReader f;
@@ -79,7 +68,9 @@ public class SlowFileStringifier implements FileStringifier {
 		return "";
     }
 
-/** The file name. */
-//A private String variable and this can only be used in this class.
+/** 
+* The file name.
+* private String variable and this can only be used in this class.
+*/
     private final String fileName;
 }
